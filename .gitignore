@@ -1,0 +1,77 @@
+# =============================================================================
+# Pet Semantic Segmentation — .gitignore
+# =============================================================================
+
+# ── Python cache ─────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.mypy_cache/
+.ruff_cache/
+
+# ── Virtual environments ─────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# ── Jupyter ──────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── IDE / editor ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Kaggle credentials (NEVER commit) ────────────────────────────────────────
+kaggle.json
+.kaggle/
+**/kaggle.json
+
+# ── Raw dataset files ─────────────────────────────────────────────────────────
+data/raw/
+data/processed/
+data/splits/
+
+# ── Model checkpoints (large binaries) ───────────────────────────────────────
+checkpoints/*.pth
+checkpoints/*.pt
+checkpoints/*.ckpt
+
+# ── Generated outputs ─────────────────────────────────────────────────────────
+outputs/training_progress/
+outputs/predictions/
+outputs/overlays/
+outputs/evaluation/
+outputs/dataset_samples/
+outputs/*.log
+
+# ── Pytest / coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# ── Playwright ───────────────────────────────────────────────────────────────
+playwright-report/
+test-results/
+
+# ── Temporary / misc ──────────────────────────────────────────────────────────
+*.tmp
+*.bak
+*.orig
+*.log
+tmp/
+temp/
+

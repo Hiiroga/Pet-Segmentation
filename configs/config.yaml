@@ -1,0 +1,103 @@
+# =============================================================================
+# Pet Semantic Segmentation — Central Configuration
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Dataset paths
+# ---------------------------------------------------------------------------
+dataset:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  splits_dir: "data/splits"
+  images_subdir: "images/images"
+  masks_subdir: "annotations/annotations/trimaps"
+  annotations_subdir: "annotations/annotations"
+  kaggle_dataset: "zippyz/cats-and-dogs-breeds-classification-oxford-dataset"
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
+
+# ---------------------------------------------------------------------------
+# Model / input configuration
+# ---------------------------------------------------------------------------
+model:
+  image_size: 256          # Height and width (square)
+  in_channels: 3           # RGB input
+  out_channels: 1          # Binary mask output
+  base_features:           # U-Net encoder channel progression
+    - 64
+    - 128
+    - 256
+    - 512
+  bottleneck_features: 1024
+
+# ---------------------------------------------------------------------------
+# Training hyperparameters
+# ---------------------------------------------------------------------------
+training:
+  epochs: 10
+  batch_size: 16
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  num_workers: 4           # DataLoader worker processes
+  pin_memory: true
+  early_stopping: false    # Disabled per project spec
+  amp: true                # Automatic Mixed Precision (FP16) — faster on GPU
+
+# ---------------------------------------------------------------------------
+# Loss function configuration
+# ---------------------------------------------------------------------------
+loss:
+  bce_weight: 0.5          # Weight for BCEWithLogitsLoss component
+  dice_weight: 0.5         # Weight for Dice Loss component
+  dice_smooth: 1.0         # Smoothing constant for Dice to avoid div-by-zero
+
+# ---------------------------------------------------------------------------
+# Optimizer configuration
+# ---------------------------------------------------------------------------
+optimizer:
+  name: "adam"
+  betas: [0.9, 0.999]
+  eps: 1.0e-8
+
+# ---------------------------------------------------------------------------
+# Reproducibility
+# ---------------------------------------------------------------------------
+seed: 42
+
+# ---------------------------------------------------------------------------
+# Device
+# ---------------------------------------------------------------------------
+device: "auto"             # "auto" → CUDA if available, else CPU
+
+# ---------------------------------------------------------------------------
+# Checkpoint & output paths
+# ---------------------------------------------------------------------------
+checkpoints:
+  dir: "checkpoints"
+  best_model_name: "best_model.pth"
+  last_model_name: "last_model.pth"
+  save_every_n_epochs: 5   # Save a periodic snapshot every N epochs
+
+outputs:
+  dir: "outputs"
+  dataset_samples: "outputs/dataset_samples"
+  training_progress: "outputs/training_progress"
+  predictions: "outputs/predictions"
+  overlays: "outputs/overlays"
+  evaluation: "outputs/evaluation"
+
+# ---------------------------------------------------------------------------
+# Inference
+# ---------------------------------------------------------------------------
+inference:
+  threshold: 0.5           # Sigmoid probability cut-off for binary mask
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+logging:
+  level: "INFO"            # DEBUG | INFO | WARNING | ERROR
+  log_dir: "outputs"
+  log_file: "training.log"
+
