@@ -3,7 +3,6 @@
 > Binary semantic segmentation of cats and dogs using a custom U-Net implemented from scratch with PyTorch.
 
 ---
-
 ## Overview
 
 This project implements a complete pixel-level segmentation pipeline for the Oxford-IIIT Pet Dataset. Every component — from the U-Net architecture to the combined loss function — is written from scratch without pretrained encoders, pretrained weights, or third-party segmentation APIs.
